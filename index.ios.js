@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import Home from './components/Home';
+import Home from './app/components/Home';
 import {
           AppRegistry,
           StyleSheet,
           NavigatorIOS,
+          TouchableHighlight
         } from 'react-native';
 
 export default class MainView extends Component {
