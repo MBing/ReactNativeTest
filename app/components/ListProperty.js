@@ -4,6 +4,8 @@ import {
   Text,
   Image,
   View,
+  NavigatorIOS,
+
 } from 'react-native';
 
 const MOCK_DATA = [

@@ -5,6 +5,7 @@ import {
   Text,
   View,
   Image,
+  NavigatorIOS,
   TouchableHighlight
 } from 'react-native';
 
@@ -55,14 +56,17 @@ const styles = StyleSheet.create({
 });
 
 export default class Home extends Component {
-  handleListProperty() {
-    this.props.navigator.push({
-      title: "List of Properties",
-      component: ListProperty
-    })
+  handleListProperty(nextRoute) {
+    this.props.navigator.push(nextRoute);
   }
 
   render() {
+    const nextRoute = {
+      component: ListProperty,
+      title: "List of Properties",
+      passProps: {}
+    };
+
     return (
       <View style={styles.container}>
         <View style={styles.topBox}>
@@ -70,7 +74,7 @@ export default class Home extends Component {
         </View>
         <View style={styles.centerBox}></View>
         <View style={styles.bottomBox}>
-          <TouchableHighlight style={styles.button} onPress={this.handleListProperty} underlayColor='#99D9F4'>
+          <TouchableHighlight style={styles.button} onPress={ () => this.handleListProperty(nextRoute)} underlayColor='#99D9F4'>
             <Text style={styles.buttonText}>List Properties</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.button} onPress={this.handleListProperty} underlayColor='#99D9F4'>
