@@ -5,37 +5,9 @@ import {
   Text,
   View,
   Image,
-  NavigatorIOS,
   TouchableHighlight
 } from 'react-native';
 
-export default class Home extends Component {
-  handleListProperty() {
-    this.props.navigator.push({
-      title: "List of Properties",
-      component: ListProperty
-    })
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.topBox}>
-          <Image source={require('../img/home/home.png')} style={styles.image} />
-        </View>
-        <View style={styles.centerBox}></View>
-        <View style={styles.bottomBox}>
-          <TouchableHighlight style={styles.button} onPress={this.handleListProperty} underlayColor='#99D9F4'>
-            <Text style={styles.buttonText}>List Properties</Text>
-          </TouchableHighlight>
-          <TouchableHighlight style={styles.button} onPress={this.handleListProperty} underlayColor='#99D9F4'>
-            <Text style={styles.buttonText}>Add House</Text>
-          </TouchableHighlight>
-        </View>
-      </View>
-    );
-  }
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -80,5 +52,32 @@ const styles = StyleSheet.create({
     width: 58,
     height: 58
   }
-
 });
+
+export default class Home extends Component {
+  handleListProperty() {
+    this.props.navigator.push({
+      title: "List of Properties",
+      component: ListProperty
+    })
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.topBox}>
+          <Image source={require('../img/home/home.png')} style={styles.image} />
+        </View>
+        <View style={styles.centerBox}></View>
+        <View style={styles.bottomBox}>
+          <TouchableHighlight style={styles.button} onPress={this.handleListProperty} underlayColor='#99D9F4'>
+            <Text style={styles.buttonText}>List Properties</Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.button} onPress={this.handleListProperty} underlayColor='#99D9F4'>
+            <Text style={styles.buttonText}>Add House</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
+    );
+  }
+}
