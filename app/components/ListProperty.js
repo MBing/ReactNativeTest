@@ -4,8 +4,7 @@ import {
   Text,
   Image,
   View,
-  NavigatorIOS,
-
+  ListView
 } from 'react-native';
 
 const MOCK_DATA = [
@@ -15,7 +14,63 @@ const MOCK_DATA = [
     images: {
       thumbnail: "http://hmp.me/ol5"
     }
-  }
+  },
+  {
+    name: "Mr. Pauls Mansion",
+    address: "625, sec-5, Ingsoc",
+    images: {
+      thumbnail: "http://hmp.me/ol6"
+    }
+  },
+  {
+    name: "Mr. Nalwayas Villa",
+    address: "11, Heights, Oceania",
+    images: {
+      thumbnail: "http://hmp.me/ol6"
+    }
+  },
+  {
+    name: "Mr. Johns Conch house",
+    address: "12th Street, Neverland",
+    images: {
+      thumbnail: "http://hmp.me/ol5"
+    }
+  },
+  {
+    name: "Mr. Pauls Mansion",
+    address: "625, sec-5, Ingsoc",
+    images: {
+      thumbnail: "http://hmp.me/ol6"
+    }
+  },
+  {
+    name: "Mr. Nalwayas Villa",
+    address: "11, Heights, Oceania",
+    images: {
+      thumbnail: "http://hmp.me/ol6"
+    }
+  },
+  {
+    name: "Mr. Johns Conch house",
+    address: "12th Street, Neverland",
+    images: {
+      thumbnail: "http://hmp.me/ol5"
+    }
+  },
+  {
+    name: "Mr. Pauls Mansion",
+    address: "625, sec-5, Ingsoc",
+    images: {
+      thumbnail: "http://hmp.me/ol6"
+    }
+  },
+  {
+    name: "Mr. Nalwayas Villa",
+    address: "11, Heights, Oceania",
+    images: {
+      thumbnail: "http://hmp.me/ol6"
+    }
+  },
 ];
 
 const styles = StyleSheet.create({
@@ -40,12 +95,23 @@ const styles = StyleSheet.create({
   },
   address: {
     textAlign: 'center',
+  },
+  listView: {
+    paddingTop: 20,
+    backgroundColor: "#F5FCFF",
   }
 });
 
 export default class ListProperty extends Component {
-  render() {
-    let property = MOCK_DATA[0];
+  constructor(props) {
+    super(props);
+    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state = {
+      dataSource: ds.cloneWithRows(MOCK_DATA),
+    };
+  }
+
+  renderProperty(property) {
     return (
       <View style={styles.container}>
         <Image
@@ -57,5 +123,14 @@ export default class ListProperty extends Component {
         </View>
       </View>
     );
+  }
+
+  render() {
+    return (
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderProperty}
+        style={styles.listView} />
+    )
   }
 }

@@ -55,18 +55,18 @@ const styles = StyleSheet.create({
   }
 });
 
+const nextRoute = {
+  component: ListProperty,
+  title: "List of Properties",
+  passProps: {}
+};
+
 export default class Home extends Component {
   handleListProperty(nextRoute) {
     this.props.navigator.push(nextRoute);
   }
 
   render() {
-    const nextRoute = {
-      component: ListProperty,
-      title: "List of Properties",
-      passProps: {}
-    };
-
     return (
       <View style={styles.container}>
         <View style={styles.topBox}>
