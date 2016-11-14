@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ListProperty from './ListProperty';
+
 import {
   StyleSheet,
   Text,
