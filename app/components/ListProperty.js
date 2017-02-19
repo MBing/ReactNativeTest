@@ -36,7 +36,7 @@ export default class ListProperty extends Component {
         })
       })
       .catch(error => {
-        AlertIOS.alert('No Donut for you!');
+        AlertIOS.alert('No Donut for you!' + error);
         this.setState({
           loaded: true,
         });
