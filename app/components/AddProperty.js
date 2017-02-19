@@ -10,6 +10,8 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
+const REQUEST_URL = "http://www.akshatpaul.com/properties";
+
 export default class AddProperty extends Component {
   constructor(props) {
     super(props);
@@ -47,7 +49,7 @@ export default class AddProperty extends Component {
   }
 
   _onPressButtonPOST() {
-    fetch("http://www.akshatpaul.com/properties", {
+    fetch(REQUEST_URL, {
       method: "POST",
       body: JSON.stringify({
         property: {
