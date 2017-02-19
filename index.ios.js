@@ -3,7 +3,7 @@ import {
   AppRegistry,
   StyleSheet,
   NavigatorIOS,
-  TouchableHighlight
+  TouchableHighlight,
 } from 'react-native';
 
 import Home from './app/components/Home';

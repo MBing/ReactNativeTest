@@ -4,74 +4,84 @@ import {
   Text,
   Image,
   View,
-  ListView
+  ListView,
+  AlertIOS,
 } from 'react-native';
 
-const MOCK_DATA = [
-  {
-    name: "Mr. Johns Conch house",
-    address: "12th Street, Neverland",
-    images: {
-      thumbnail: "http://hmp.me/ol5"
+const REQUEST_URL = 'http://www.akshatpaul.com/list-all-properties';
+
+export default class ListProperty extends Component {
+  constructor(props) {
+    super(props);
+    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state = {
+      dataSource: ds,
+      loaded: false,
+    };
+  }
+
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  fetchData() {
+    fetch(REQUEST_URL)
+      .then(response => response.json())
+      .then(responseData => {
+        console.log(responseData);
+        this.setState({
+          house: responseData,
+          dataSource: this.state.dataSource.cloneWithRows(responseData),
+          loaded: true,
+        })
+      })
+      .catch(error => {
+        AlertIOS.alert('No Donut for you!');
+        this.setState({
+          loaded: true,
+        });
+      })
+      .done();
+  }
+
+  render() {
+    if (!this.state.loaded) {
+      return this.renderLoadingView();
     }
-  },
-  {
-    name: "Mr. Pauls Mansion",
-    address: "625, sec-5, Ingsoc",
-    images: {
-      thumbnail: "http://hmp.me/ol6"
-    }
-  },
-  {
-    name: "Mr. Nalwayas Villa",
-    address: "11, Heights, Oceania",
-    images: {
-      thumbnail: "http://hmp.me/ol6"
-    }
-  },
-  {
-    name: "Mr. Johns Conch house",
-    address: "12th Street, Neverland",
-    images: {
-      thumbnail: "http://hmp.me/ol5"
-    }
-  },
-  {
-    name: "Mr. Pauls Mansion",
-    address: "625, sec-5, Ingsoc",
-    images: {
-      thumbnail: "http://hmp.me/ol6"
-    }
-  },
-  {
-    name: "Mr. Nalwayas Villa",
-    address: "11, Heights, Oceania",
-    images: {
-      thumbnail: "http://hmp.me/ol6"
-    }
-  },
-  {
-    name: "Mr. Johns Conch house",
-    address: "12th Street, Neverland",
-    images: {
-      thumbnail: "http://hmp.me/ol5"
-    }
-  },
-  {
-    name: "Mr. Pauls Mansion",
-    address: "625, sec-5, Ingsoc",
-    images: {
-      thumbnail: "http://hmp.me/ol6"
-    }
-  },
-  {
-    name: "Mr. Nalwayas Villa",
-    address: "11, Heights, Oceania",
-    images: {
-      thumbnail: "http://hmp.me/ol6"
-    }
-  },
-];
+
+    return (
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderProperty}
+        style={styles.listView}
+      />
+    )
+  }
+
+  renderProperty(property) {
+    return (
+      <View style={styles.container}>
+        <Image
+          source={{uri: property.images.thumbnail}}
+          style={styles.thumbnail} />
+        <View style={styles.rightContainer}>
+          <Text style={styles.name}>{property.name}</Text>
+          <Text style={styles.address}>{property.address}</Text>
+        </View>
+      </View>
+    );
+  }
+
+  renderLoadingView() {
+    return (
+      <View style={styles.container}>
+        <Text>
+          Loading houses...
+        </Text>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -97,40 +107,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   listView: {
-    paddingTop: 20,
+    paddingTop: 70,
     backgroundColor: "#F5FCFF",
-  }
+  },
 });
-
-export default class ListProperty extends Component {
-  constructor(props) {
-    super(props);
-    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows(MOCK_DATA),
-    };
-  }
-
-  renderProperty(property) {
-    return (
-      <View style={styles.container}>
-        <Image
-          source={{uri: property.images.thumbnail}}
-          style={styles.thumbnail} />
-        <View style={styles.rightContainer}>
-          <Text style={styles.name}>{property.name}</Text>
-          <Text style={styles.address}>{property.address}</Text>
-        </View>
-      </View>
-    );
-  }
-
-  render() {
-    return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderProperty}
-        style={styles.listView} />
-    )
-  }
-}
